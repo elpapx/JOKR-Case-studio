@@ -1,0 +1,10 @@
+
+df_1 = df.iloc[:, 1:6] # filter category l2 
+#Computation
+df_1 = df_1.groupby(['Category L2']).mean()
+df_1['Average Margin'] = df_1['Price'] - df_1['COGS']  #create new column 'average' 
+df_1 = df_1.sort_values(by='Average Margin', ascending = False)
+#Print Results
+print('\n', 'the best perfomance:', '\n', df_1.head(1))
+print('\n', 'the worst perfomance:', '\n', df_1.tail(1))
+df_1

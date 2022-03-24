@@ -1,0 +1,35 @@
+#Q2
+df_l3 = df.iloc[:, 1:12]
+#Computation
+df_l3 = df_l3.groupby(['Category L2']).mean() #we need to agroup the categories for means
+
+def var_index(original_df, sectors, countries): #this function calculates the variation of our prices with respect to the competition
+  sector_df = original_df
+  for country in countries:
+    sector_df[f"Var. {country}"] = ((sector_df['Price'] - sector_df[f"{country}"])/sector_df['Price']) * 100
+  return sector_df
+
+countries = ['Australia', 'Brazil', 'Canada', 'Denmark', 'Germany', 'Mexico']
+df_var = var_index(df_l3,['Category L1'], countries).fillna(0)
+
+print('cheapest product:', '', df_var['Var. Australia'].min()) #
+print('expensive product:', '', df_var['Var. Australia'].max())
+df_var
+
+#b 
+
+df_bench = df.iloc[:, 1:12]
+df_bench = df_bench.groupby(['Category L1', 'Category L2', 'Product']).mean()
+df_bench = df_bench.sort_values(by='Category L1', ascending = True)
+df_bench = pd.pivot_table(df_bench, values=['Australia','Brazil', 'Canada', 'Denmark', 'Germany', 'Price', 'Mexico'], index=['Category L1', 'Category L2', 'Product'],fill_value=0)
+
+def create_sector_df(original_df, sectors, countries):
+  sector_df = original_df.loc[tuple(sectors)]
+  for country in countries:
+    sector_df[f"Var. {country}"] = ((sector_df['Price'] - sector_df[f"{country}"])/sector_df['Price']) * 100
+  return sector_df
+
+countries = ['Australia', 'Brazil', 'Canada', 'Denmark', 'Germany', 'Mexico']
+
+print(create_sector_df(df_bench, ['Beer, Wine & Spirits', 'Spirits'], countries))
+print(create_sector_df(df_bench, ['Snacks & Sweets', 'Chocolate'], countries))

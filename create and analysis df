@@ -1,0 +1,22 @@
+#Create the DataFrame 
+df = pd.read_excel(excel_name)
+df = df.rename(columns={df.columns[1]: 'Product',df.columns[5]: 'Price'}) # rename the columns for filters
+
+#Recognition data from excel on DataFrame
+print('--------- Info from the DataFrame---------')
+print(df.info())
+
+
+#Count missing data 
+na_df =  len(df.index) - df.count()  
+na_df = na_df.drop(na_df[na_df == 0].index).sort_values(ascending=False)
+if df.isnull().sum().sum() != 0:
+    na_df
+    #Graph
+    missing_data = pd.DataFrame({'Count Missing' :na_df})
+    missing_data.plot(kind = "barh")
+    #Adds
+    plt.title('Count of missing data by country')
+    plt.ylabel('Fictional supermarkets’ prices (competitors)')
+    plt.xlabel('Count missing data ratio ')
+    plt.show()

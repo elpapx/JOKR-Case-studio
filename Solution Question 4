@@ -1,0 +1,14 @@
+#Q4
+#Filter pricing index: 'Beer, Wine & Spirits', ['Mexico', 'Price']]
+df_table = df.iloc[:, 1:12]
+table = pd.pivot_table(df_table, values=['Australia','Brazil', 'Canada', 'Denmark', 'Germany', 'Price', 'Mexico'], index=['Category L1', 'Category L2', 'Product'],fill_value=0)
+table_alch = table.loc['Beer, Wine & Spirits', ['Mexico', 'Price']]
+table_alch['price_Index'] = (table_alch['Mexico'] / table_alch['Price'])*100
+table_alch = table_alch.sort_values(by=['Category L2', 'price_Index'], ascending = False)
+table_alch
+
+#Filter pricing index: '' ['Mexico', 'Price']]
+df_table_filter = df_table['price_Index'] = (df_table['Mexico'] / df_table['Price']) * 100
+df_table_filter = df_table.sort_values(by='price_Index', ascending = False)
+df_table_filter.tail(20)
+df_table_filter.head()

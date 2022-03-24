@@ -1,0 +1,44 @@
+#Q5
+
+#Multiplier
+multiplier = len(df['Price']) / df.count()  #we offer 3.6x products than canada and 3.5x than Brazil 
+
+#Participation in the market 
+df_part = (df.count() / len(df)) 
+
+#Number of products offered by the competitors and 
+def addlabels(key, values):
+  for i in range(len(key)):
+    plt.text(i,values[i],values[i], ha = 'center',
+             Bbox = dict(facecolor = 'blue', alpha =.9))
+
+if __name__ == '__main__':
+  key = ['Price','Mexico','Germany','Australia', 'Denmark', 'Brazil', 'Canada']
+  values = [141, 128, 90, 82,  58, 40, 39,]
+  plt.figure(figsize = (10,5))
+  plt.bar(key, values)
+  addlabels(key, values)
+  plt.title('Coverage of products offered by competitors')
+  plt.ylabel('Number of products offered by competitor', fontsize=16) #Armonia 10
+  plt.xlabel('Competitors', fontsize=16) #Mix linda maria
+  plt.show()
+
+# b 
+
+#Q5
+labels = ['Australia', 'Brazil', 'Canada', 'Denmark', 'Germany','Mexico']
+values = [58.15, 28.36, 27.65, 41.11, 63.82, 90.78]
+
+plt.figure(figsize=plt.figaspect(1))
+
+plt.pie(values, labels=labels,
+        explode=[0, 0, 0.1 , 0, 0, 0.1 ],
+        textprops={"family": "Arial", "size": 12},
+        radius = 1,
+         colors = ["#9BC2E6", "#FF6600", "#F4B084", "#00B050", "#C6E0B4", "#8633FF"]
+        )
+plt.legend(values, loc="best",
+           bbox_to_anchor=(0.8,0),
+           title="Percentage Markets")
+plt.title("Coverage of competitiveness by products and\n" + "percentage distribution of the competition ", bbox={'facecolor':'green', 'pad':5})
+plt.show()
